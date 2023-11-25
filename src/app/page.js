@@ -1,4 +1,4 @@
-import CountriesFetch from "./components/fetch-countries/CountriesFetch"
+import Countries from "./components/countries/CountriesComponent"
 
 export default function Home() {
   return (
@@ -6,7 +6,7 @@ export default function Home() {
       <h1 className='text-3xl capitalize underline font-bold text-emerald-700'>
         rest countries api challenge
       </h1>
-      <CountriesFetch />
+      <Countries />
     </main>
   )
 }
