@@ -1,12 +1,9 @@
-import Countries from "./components/countries/CountriesComponent"
+import Countries from "./countries/page"
 
 export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <h1 className='text-3xl capitalize underline font-bold text-emerald-700'>
-        rest countries api challenge
-      </h1>
-      <Countries />
+      <h1 className='text-5xl text-blue-800 font-bold underline'>Homme Page</h1>
     </main>
   )
 }
