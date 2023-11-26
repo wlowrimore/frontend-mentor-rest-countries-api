@@ -84,7 +84,7 @@ const CountryDetails = () => {
             <div className='flex flex-col'>
               {countryDetails.map((detail, detIndex) => (
                 <div key={detIndex} className='text-sm space-y-2'>
-                  <p>Top Level Domain: {detail?.tld}</p>
+                  <p>Top Level Domain:&nbsp; {detail?.tld}</p>
                   {countryDetails[0]?.currencies && (
                     <div className='flex space-x-2'>
                       <h2>Currencies:</h2>
@@ -100,11 +100,7 @@ const CountryDetails = () => {
                   {languagesArray.length > 0 && (
                     <div className='flex gap-2'>
                       <p>Languages:</p>
-                      <ul className='flex gap-2'>
-                        {languagesArray.map((language, index) => (
-                          <li key={index}>{language}</li>
-                        ))}
-                      </ul>
+                      <p>{languagesArray.join(', ')}</p>
                     </div>
                   )}
                 </div>
