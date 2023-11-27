@@ -2,8 +2,8 @@ import React from 'react'
 
 const Header = () => {
   return (
-    <div className='bg-gray-700 text-white flex justify-between mx-auto w-full py-6'>
-      <div className='container flex justify-between mx-auto pr-16'>
+    <div className='bg-gray-700 text-white flex justify-between mx-auto w-full py-6 px-24'>
+      <div className='container mx-auto flex justify-between w-screen pr-16'>
         <div>
           <h1 className='text-2xl'>Where in the world?</h1>
         </div>

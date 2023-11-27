@@ -1,20 +1,24 @@
 'use client'
+import BorderCountries from '@/app/components/BorderCountries';
 import Image from 'next/image';
 import { useParams, useRouter } from 'next/navigation';
-// import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 const CountryDetails = () => {
-  const params = useParams();
+  const { countryCode } = useParams();
   const router = useRouter();
-  const countryCode = params.countryCode
+  // const countryCode = params.countryCode;
   const [countryDetails, setCountryDetails] = useState(null);
-
+  console.log('Country Code:', countryCode)
   useEffect(() => {
     const fetchCountryDetails = async () => {
+      // console.log('These are my Params:', params);
       try {
         if (countryCode) {
           const res = await fetch(`https://restcountries.com/v3.1/alpha/${countryCode}`);
+          if (!res.ok) {
+            throw new Error(`HTTP error! Status: ${res.status}`);
+          }
           const data = await res.json();
           setCountryDetails(data);
         }
@@ -27,12 +31,14 @@ const CountryDetails = () => {
   }, [countryCode]);
 
   useEffect(() => {
-    console.log('Country Details:', countryDetails)
-  }, [countryDetails])
+    if (countryDetails) {
+      const languagesObject = countryDetails[0]?.languages || {};
+      const languagesArray = Object.values(languagesObject);
 
-  useEffect(() => {
-    console.log('Currencies:', countryDetails?.currencies);
-  }, [countryDetails]);
+      console.log('Country Details:', countryDetails);
+      console.log('Languages Array:', languagesArray);
+    }
+  }, [countryCode, countryDetails]);
 
   if (!countryDetails) {
     return <div>Loading...</div>;
@@ -40,6 +46,8 @@ const CountryDetails = () => {
 
   const languagesObject = countryDetails[0]?.languages || {};
   const languagesArray = Object.values(languagesObject);
+
+  // console.log('Borders:', countryDetails[0].borders)
 
   return (
     <div className='my-20 w-full'>
@@ -49,31 +57,28 @@ const CountryDetails = () => {
       </span>
         Back
       </button>
-
       <section className='w-full flex gap-32'>
         <div className='w-fit flex h-[400px]'>
           <Image
-            src={countryDetails[0].flags?.svg}
-            alt={countryDetails[0].flags?.alt || 'No alt description found'}
+            src={countryDetails[0]?.flags?.svg}
+            alt={countryDetails[0]?.flags?.alt || 'No alt description found'}
             width={500}
             height={800}
             className='aspect-video h-full object-cover'
           />
         </div>
-
-        <div className='flex flex-col py-10 text-white justify-start w-1/2'>
+        {/* Info Text Box */}
+        <div className='flex flex-col py-16 text-white justify-start w-1/2'>
           <div className='flex w-full mb-8'>
-            <h1 className='w-full text-3xl font-bold text-start text-white'>{countryDetails[0].name?.common}</h1>
+            <h1 className='w-full text-3xl font-bold text-start text-white'>{countryDetails[0]?.name?.common}</h1>
           </div>
-          <div className='flex w-full gap-32'>
+          <div className='flex text-sm text-gray-300 w-full gap-32'>
             <div className='flex flex-col'>
-              {countryDetails.map((detail, detIndex) => (
+              {Array.isArray(countryDetails) && countryDetails.map((detail, detIndex) => (
                 <div key={detIndex} className='text-sm space-y-2'>
                   <p>Official Name: {detail?.name?.official}</p>
                   {countryDetails[0]?.population && (
-                    <p>
-                      Population: {countryDetails[0]?.population.toLocaleString()}
-                    </p>
+                    <p>Population: {countryDetails[0]?.population.toLocaleString()}</p>
                   )}
                   <p>Region: {detail?.region}</p>
                   <p>Sub Region: {detail?.subregion}</p>
@@ -81,8 +86,8 @@ const CountryDetails = () => {
                 </div>
               ))}
             </div>
-            <div className='flex flex-col'>
-              {countryDetails.map((detail, detIndex) => (
+            <div className='text-sm text-gray-300 flex flex-col'>
+              {Array.isArray(countryDetails) && countryDetails.map((detail, detIndex) => (
                 <div key={detIndex} className='text-sm space-y-2'>
                   <p>Top Level Domain:&nbsp; {detail?.tld}</p>
                   {countryDetails[0]?.currencies && (
@@ -107,11 +112,13 @@ const CountryDetails = () => {
               ))}
             </div>
           </div>
-
+          <div className='mt-8'>
+            <BorderCountries borders={countryDetails[0]?.borders} />
+          </div>
         </div>
       </section>
     </div>
   );
-};
+}
 
 export default CountryDetails;
