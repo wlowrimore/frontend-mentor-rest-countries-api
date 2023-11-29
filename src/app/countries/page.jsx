@@ -4,27 +4,46 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import SearchForCountry from '../components/search-options/SearchForCountry';
+import DropdownForRegion from '../components/search-options/DropdownForRegion';
 
-const Countries = ({ query }) => {
+const Countries = ({ query, setIsOpen }) => {
   const [countries, setCountries] = useState([]);
+  const [selectedRegion, setSelectedRegion] = useState('');
 
-  const API_URL = 'https://restcountries.com/v3.1/all';
+  const API_URL = selectedRegion
+    ? `https://restcountries.com/v3.1/region/${selectedRegion}`
+    : 'https://restcountries.com/v3.1/all'
 
   useEffect(() => {
     const getCountriesData = async () => {
-      const res = await fetch(API_URL);
-      const data = await res.json();
+      try {
+        const res = await fetch(API_URL);
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`)
+        }
 
-      // console.log('Countries Data:', data);
+        const data = await res.json();
 
-      setCountries(data);
+        console.log('API URL:', API_URL);
+        console.log('Countries Data:', data);
+
+        setCountries(data);
+      } catch (error) {
+        console.error('Error fetching countries:', error.message);
+      }
     };
+
     getCountriesData();
-  }, []);
+  }, [API_URL]);
+
+  const handleRegionSelect = (region) => {
+    setSelectedRegion(region);
+  }
 
   return (
     <>
       <SearchForCountry />
+      <DropdownForRegion onRegionSelect={handleRegionSelect} />
       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-12'>
         {countries && countries.map((country) => (
           <Link href={`/countries/${country.cca2}`} key={country.cca2} className='w-[285px] hover:opacity-60 transform duration-200 ease-in'>

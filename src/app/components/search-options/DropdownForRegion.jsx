@@ -1,59 +1,79 @@
-import Link from 'next/link'
-import React from 'react'
+'use client'
 
-const DropdownForRegion = () => {
+import Link from 'next/link';
+import { useState, useEffect } from 'react';
+
+const DropdownForRegion = ({ onRegionSelect }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [regions, setRegions] = useState([]);
+  const [selectedRegion, setSelectedRegion] = useState('');
+
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
+
+  useEffect(() => {
+    const fetchRegions = async () => {
+      try {
+        const res = await fetch('https://restcountries.com/v3.1/all');
+        const countries = await res.json();
+        const uniqueRegions = Array.from(new Set(countries.map(country => country.region)));
+        setRegions(uniqueRegions.filter(region => region)); // Filter out falsy values
+      } catch (error) {
+        console.error('Error fetching regions:', error);
+      }
+    };
+
+    fetchRegions();
+  }, []);
+
+  useEffect(() => {
+    if (selectedRegion !== null) {
+      // Close the dropdown when a region is selected
+      setIsOpen(false);
+    }
+  }, [selectedRegion]);
+
   return (
-    <div className="relative px-16" data-te-dropdown-ref>
-      <Link
-        href="#"
-        className="flex items-center justify-between px-8 w-[12rem] h-[2.7rem] rounded bg-gray-700 text-xs leading-normal text-gray-300"
-        type="button"
-        id="dropdownMenuButton2">
-        Filter by Region
-        <span className="ml-2 w-2">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 20 20"
-            fill="currentColor"
-            className="h-5 w-5">
-            <path
-              fillRule="evenodd"
-              d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
-              clipRule="evenodd" />
-          </svg>
-        </span>
-      </Link>
-      <ul
-        className="absolute z-[1000] float-left m-0 hidden min-w-max list-none overflow-hidden rounded-lg border-none bg-white bg-clip-padding text-left text-base shadow-lg dark:bg-neutral-700 [&[data-te-dropdown-show]]:block"
-        aria-labelledby="dropdownMenuButton2"
-        data-te-dropdown-menu-ref>
-        <li>
-          <Link
-            href="#"
-            className="block w-full whitespace-nowrap bg-transparent px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-neutral-600"
-            data-te-dropdown-item-ref
-          >Action
-          </Link>
-        </li>
-        <li>
-          <Link
-            className="block w-full whitespace-nowrap bg-transparent px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-neutral-600"
-            href="#"
-            data-te-dropdown-item-ref
-          >Another action
-          </Link>
-        </li>
-        <li>
-          <Link
-            className="block w-full whitespace-nowrap bg-transparent px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-neutral-600"
-            href="#"
-            data-te-dropdown-item-ref
-          >Something else here
-          </Link>
-        </li>
-      </ul>
-    </div>
-  )
-}
+    <div className="text-xs absolute xl:right-60 xl:top-32 xl:mt-2  xl:mr-1.5 z-10 flex flex-col text-neutral-300">
+      <section
+        onClick={toggleMenu}
+        className='bg-gray-700 flex justify-between items-center w-full h-12 py-2 px-6 mr-16 rounded cursor-pointer'
+      >
+        <span>Filter by Region</span>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          className={`w-4 h-4 transition-transform transform ${isOpen ? 'rotate-180' : ''}`}
+        >
+          <path
+            fillRule="evenodd"
+            d="M12.53 16.28a.75.75 0 01-1.06 0l-7.5-7.5a.75.75 0 011.06-1.06L12 14.69l6.97-6.97a.75.75 0 111.06 1.06l-7.5 7.5z"
+            clipRule="evenodd"
+          />
+        </svg>
+      </section>
 
-export default DropdownForRegion
+      <section
+        className={`relative z-10 w-full bg-gray-700 mr-16 mt-[0.2rem] rounded py-4 px-3 ${!isOpen ? 'opacity-0 ' : 'opacity-100 transform transition-all duration-500 ease-in-out'
+          }`}
+      >
+        <ul className='space-y-1'>
+          {regions.map((region) => (
+            <li
+              key={region}
+              onClick={() => { onRegionSelect(`${region}`); setSelectedRegion(`${region}`) }}
+              className={`hover:bg-gray-800/30 w-4/5 rounded py-1 px-3 cursor-pointer ${region === selectedRegion ? 'bg-gray-800' : ''
+                }`}
+            >
+              {region}
+            </li>
+          ))}
+        </ul>
+      </section>
+    </div>
+  );
+};
+
+export default DropdownForRegion;

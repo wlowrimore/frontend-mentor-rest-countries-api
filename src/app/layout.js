@@ -15,7 +15,7 @@ export default function RootLayout({ children }) {
       <body className={inter.className}>
         <main className='bg-gray-800'>
           <Header />
-          <section className=' container mx-auto px-24'>
+          <section className='container content-center mx-auto'>
             {children}
           </section>
         </main>
