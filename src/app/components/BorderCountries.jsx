@@ -1,41 +1,54 @@
-'use client'
+"use client";
 
-import { useEffect, useState } from 'react';
+import Link from "next/link";
+import { useEffect, useState } from "react";
 
 const BorderCountries = ({ borders }) => {
-  const [borderCountryNames, setBorderCountryNames] = useState([]);
+  const [borderCountryData, setBorderCountryData] = useState([]);
 
   useEffect(() => {
-    const fetchBorderCountryNames = async () => {
+    const fetchBorderCountryData = async () => {
       try {
         if (borders && borders.length > 0) {
-          const borderNames = await Promise.all(
+          const borderData = await Promise.all(
             borders.map(async (border) => {
-              const res = await fetch(`https://restcountries.com/v3.1/alpha/${border}`);
+              const res = await fetch(
+                `https://restcountries.com/v3.1/alpha/${border}`
+              );
               const data = await res.json();
-              return data?.[0]?.name?.common || border;
+              // console.log('border logged from BorderCountries.jsx:', data)
+
+              const borderCountryName = await data?.[0].name?.common
+              const borderCountryCode = await data?.[0].cca2
+
+              console.log('Border Country Names:', borderCountryName)
+              console.log('Border Country Codes:', borderCountryCode)
+
+              return { borderCountryName, borderCountryCode }
             })
           );
-          setBorderCountryNames(borderNames);
+          setBorderCountryData(borderData);
         }
       } catch (error) {
-        console.error('Error fetching border country names:', error);
+        console.error("Error fetching border country names:", error);
       }
     };
 
-    fetchBorderCountryNames();
+    fetchBorderCountryData();
   }, [borders]);
 
   if (!borders || borders.length === 0) {
-    return null; // or render a default message
+    return 'There are no bordering countries.';
   }
 
   return (
-    <div className='flex gap-3 text-gray-300 text-sm'>
-      <h2 className='pr-1'>Border Countries: </h2>
-      {borderCountryNames.map((borderName, bordersIndex) => (
-        <div key={bordersIndex}>
-          <p className='bg-gray-700 text-xs py-1 px-6'>{borderName}</p>
+    <div className="grid grid-cols-6 gap-3 text-gray-300 text-sm">
+      <h2 className="pr-1">Border Countries: </h2>
+      {borderCountryData.map(({ borderCountryName, borderCountryCode }, index) => (
+        <div key={index}>
+          <Link href={`/countries/${borderCountryCode}`}>
+            <p className="bg-gray-700 text-xs py-1 px-6">{borderCountryName}</p>
+          </Link>
         </div>
       ))}
     </div>

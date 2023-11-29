@@ -7,12 +7,10 @@ import { useEffect, useState } from 'react';
 const CountryDetails = () => {
   const { countryCode } = useParams();
   const router = useRouter();
-  // const countryCode = params.countryCode;
   const [countryDetails, setCountryDetails] = useState(null);
-  console.log('Country Code:', countryCode)
+  // console.log('Country Code:', countryCode)
   useEffect(() => {
     const fetchCountryDetails = async () => {
-      // console.log('These are my Params:', params);
       try {
         if (countryCode) {
           const res = await fetch(`https://restcountries.com/v3.1/alpha/${countryCode}`);

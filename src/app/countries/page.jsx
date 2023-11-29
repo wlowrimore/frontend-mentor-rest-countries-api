@@ -15,7 +15,7 @@ const Countries = ({ query }) => {
       const res = await fetch(API_URL);
       const data = await res.json();
 
-      console.log('Countries Data:', data);
+      // console.log('Countries Data:', data);
 
       setCountries(data);
     };

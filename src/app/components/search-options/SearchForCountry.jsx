@@ -1,49 +1,50 @@
 'use client'
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 import DropdownForRegion from './DropdownForRegion';
+
+const debounce = (func, wait) => {
+  let timeout;
+  return (...args) => {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func(...args), wait);
+  }
+}
 
 const SearchForCountry = () => {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace, push } = useRouter();
   const [searchedCountry, setSearchedCountry] = useState(searchParams.get('query') || '');
-  const [details, setDetails] = useState([])
+  const [details, setDetails] = useState()
 
-  const handleSearch = (query) => {
+  const inputElem = useRef(null);
+
+  const handleSearch = useCallback(debounce(query => fetchCountryResults(query), 500))
+
+  const fetchCountryResults = async (query) => {
     setSearchedCountry(query);
-  };
-  console.log('Searched Country', searchedCountry)
-
-  useEffect(() => {
-    const getDetailsFromSearchedCountry = async () => {
-      try {
-        const res = await fetch(`https://restcountries.com/v3.1/name/${searchedCountry}?fullText=true`)
+    try {
+      if (query !== '') {
+        const res = await fetch(`https://restcountries.com/v3.1/name/${query}?fullText=true`)
         const data = await res.json();
-        console.log('Searched Country Details', data)
 
-        if (Array.isArray(data) && data.length > 0) {
-          setDetails(data)
+        if (data && data.length > 0) {
+          setDetails(data);
         } else {
-          console.error('Error: Country code not found.')
+          console.log('Something went wrong!')
         }
-      } catch (error) {
-        console.error('Error fetching country details:', error)
       }
+    } catch (error) {
+      console.error(error)
     }
-
-    if (searchedCountry) {
-      getDetailsFromSearchedCountry()
-    }
-  }, [searchedCountry])
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const countryCode = details.length > 0 ? details[0]?.cca2 : '';
-
-    console.log("CC from SearchComponent", countryCode)
-
+    const countryCode = details?.length > 0 ? details[0]?.cca2 : '';
+    console.log('COUNTRY CODE:', countryCode);
     const params = new URLSearchParams(searchParams);
     if (searchedCountry) {
       params.set('query', searchedCountry);
@@ -51,10 +52,7 @@ const SearchForCountry = () => {
       params.delete('query');
     }
     replace(`${pathname}?${params.toString()}`);
-
     push(`/countries/${countryCode}`);
-
-    console.log('Term Searched:', countryCode)
   };
 
   return (
@@ -67,10 +65,10 @@ const SearchForCountry = () => {
         </div>
         <form className='flex w-full justify-between' onSubmit={handleSubmit}>
           <input
-            onChange={(e) => handleSearch(e.target.value)}
-            value={searchedCountry}
+            ref={inputElem}
+            onChange={() => handleSearch(inputElem.current?.value)}
             placeholder='Search for a country...'
-            className='h-[2.7rem] w-1/3 py-2 bg-gray-700 text-white placeholder:text-xs outline-none rounded-tr rounded-br'
+            className='w-1/3 py-2 bg-gray-700 text-white placeholder:text-xs outline-none rounded-tr rounded-br'
           />
         </form>
         <div>
