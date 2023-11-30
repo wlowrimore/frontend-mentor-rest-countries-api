@@ -42,15 +42,17 @@ const BorderCountries = ({ borders }) => {
   }
 
   return (
-    <div className="flex flex-wrap gap-3 text-gray-300 text-sm">
-      <h2 className="pr-1">Border Countries: </h2>
-      {borderCountryData.map(({ borderCountryName, borderCountryCode }, index) => (
-        <div key={index}>
-          <Link href={`/countries/${borderCountryCode}`}>
-            <p className="bg-gray-700 text-xs py-1 px-6 flex w-full rounded hover:bg-transparent transform transition duration-300">{borderCountryName}</p>
-          </Link>
-        </div>
-      ))}
+    <div className="flex flex-col text-gray-300 text-sm md:text-md">
+      <h2 className="md:pr-1 md:mt-8 md:mb-2 font-bold">Border Countries: </h2>
+      <section className='flex flex-wrap w-full'>
+        {borderCountryData.map(({ borderCountryName, borderCountryCode }, index) => (
+          <div key={index} className='flex mr-1 my-1'>
+            <Link href={`/countries/${borderCountryCode}`} className=''>
+              <p className="bg-gray-700 text-sm md:text-md py-1 px-6 flex w-full rounded-sm md:rounded hover:bg-transparent transform transition duration-300">{borderCountryName}</p>
+            </Link>
+          </div>
+        ))}
+      </section>
     </div>
   );
 };
