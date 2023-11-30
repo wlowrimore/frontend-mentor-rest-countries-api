@@ -60,7 +60,7 @@ const SearchForCountry = () => {
   };
 
   return (
-    <div className='w-full md:w-[50%] lg:w-[38%] xl:w-[30%] 2xl:w-[25%] md:ml-16 lg:ml-8 xl:-ml-2'>
+    <div className='w-full md:w-[50%] lg:w-[38%] xl:w-[30%] 2xl:w-[25%] md:mt-3 md:ml-16 lg:ml-8 xl:-ml-2'>
       <div className='flex w-full 2xl:-ml-2'>
         <div className='w-12'>
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-12 h-[3rem] py-3 bg-gray-700 text-white rounded-tl rounded-bl">
