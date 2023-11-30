@@ -35,17 +35,17 @@ const DropdownForRegion = ({ onRegionSelect }) => {
   }, [selectedRegion]);
 
   return (
-    <div className="text-xs absolute xl:right-60 xl:top-32 xl:mt-2  xl:mr-1.5 z-10 flex flex-col text-neutral-300">
+    <div className="text-xs w-[60%] md:w-[25%] xl:w-[16%] 2xl:w-[12%] flex flex-col text-neutral-300 absolute z-10 top-32 md:top-[9.35%] 2xl:top-[6.2%] md:right-20 lg:right-[2.7rem] xl:right-[5.5rem] 2xl:right-[10.8rem]">
       <section
         onClick={toggleMenu}
-        className='bg-gray-700 flex justify-between items-center w-full h-12 py-2 px-6 mr-16 rounded cursor-pointer'
+        className='bg-gray-700 flex justify-between items-center w-full h-12 py-2 px-6 rounded cursor-pointer'
       >
         <span>Filter by Region</span>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
           fill="currentColor"
-          className={`w-4 h-4 transition-transform transform ${isOpen ? 'rotate-180' : ''}`}
+          className={`w-4 h-4 ml-8 transition-transform transform ${isOpen ? 'rotate-180' : ''}`}
         >
           <path
             fillRule="evenodd"
@@ -56,21 +56,23 @@ const DropdownForRegion = ({ onRegionSelect }) => {
       </section>
 
       <section
-        className={`relative z-10 w-full bg-gray-700 mr-16 mt-[0.2rem] rounded py-4 px-3 ${!isOpen ? 'opacity-0 ' : 'opacity-100 transform transition-all duration-500 ease-in-out'
+        className={`w-full bg-gray-700 mt-[0.2rem] rounded py-4 px-3 ${!isOpen ? 'opacity-0 ' : 'opacity-100 transform transition-all duration-500 ease-in-out'
           }`}
       >
-        <ul className='space-y-1'>
-          {regions.map((region) => (
-            <li
-              key={region}
-              onClick={() => { onRegionSelect(`${region}`); setSelectedRegion(`${region}`) }}
-              className={`hover:bg-gray-800/30 w-4/5 rounded py-1 px-3 cursor-pointer ${region === selectedRegion ? 'bg-gray-800' : ''
-                }`}
-            >
-              {region}
-            </li>
-          ))}
-        </ul>
+        <div className='relative z-10 '>
+          <ul className='space-y-1'>
+            {regions.map((region) => (
+              <li
+                key={region}
+                onClick={() => { onRegionSelect(`${region}`); setSelectedRegion(`${region}`) }}
+                className={`hover:bg-gray-800/30 w-4/5 rounded py-1 px-3 cursor-pointer ${region === selectedRegion ? 'bg-gray-800' : ''
+                  }`}
+              >
+                {region}
+              </li>
+            ))}
+          </ul>
+        </div>
       </section>
     </div>
   );

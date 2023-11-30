@@ -42,9 +42,11 @@ const Countries = ({ query, setIsOpen }) => {
 
   return (
     <>
-      <SearchForCountry />
-      <DropdownForRegion onRegionSelect={handleRegionSelect} />
-      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-12'>
+      <div className='flex flex-col w-full px-4 my-6 space-y-10'>
+        <SearchForCountry />
+        <DropdownForRegion onRegionSelect={handleRegionSelect} />
+      </div>
+      <div className='flex flex-wrap w-full mt-28 mb-16 md:mt-16 justify-center gap-10 2xl:grid grid-cols-5'>
         {countries && countries.map((country) => (
           <Link href={`/countries/${country.cca2}`} key={country.cca2} className='w-[285px] hover:opacity-60 transform duration-200 ease-in'>
             <div className='flex flex-col'>
@@ -57,7 +59,7 @@ const Countries = ({ query, setIsOpen }) => {
             </div>
             <div className='bg-gray-700 text-gray-300 flex-1 p-6 rounded-b'>
               <h1 className='text-lg text-white font-bold mb-3'>{country.name.common}</h1>
-              <p><span className='text-neutral-200 font-semibold'>Population:</span> {country.population}</p>
+              <p><span className='text-neutral-200 font-semibold'>Population:</span> {country.population.toLocaleString()}</p>
               <p><span className='text-neutral-200 font-semibold'>Region:</span> {country.region}</p>
               <p><span className='text-neutral-200 font-semibold'>Capital:</span> {country.capital}</p>
             </div>

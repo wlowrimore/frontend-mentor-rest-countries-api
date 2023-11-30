@@ -42,12 +42,12 @@ const BorderCountries = ({ borders }) => {
   }
 
   return (
-    <div className="grid grid-cols-6 gap-3 text-gray-300 text-sm">
+    <div className="flex flex-wrap gap-3 text-gray-300 text-sm">
       <h2 className="pr-1">Border Countries: </h2>
       {borderCountryData.map(({ borderCountryName, borderCountryCode }, index) => (
         <div key={index}>
           <Link href={`/countries/${borderCountryCode}`}>
-            <p className="bg-gray-700 text-xs py-1 px-6">{borderCountryName}</p>
+            <p className="bg-gray-700 text-xs py-1 px-6 flex w-full rounded hover:bg-transparent transform transition duration-300">{borderCountryName}</p>
           </Link>
         </div>
       ))}
