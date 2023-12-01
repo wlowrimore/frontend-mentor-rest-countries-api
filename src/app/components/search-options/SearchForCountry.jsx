@@ -23,7 +23,7 @@ const SearchForCountry = () => {
   const inputElem = useRef(null);
 
   // Handle Search with Debouncer to Minimize API Requests
-  const handleSearch = useCallback(debounce(query => fetchCountryResults(query), 300))
+  const handleSearch = useCallback(debounce(query => fetchCountryResults(query), 400))
 
   // Fetch Searched Country
   const fetchCountryResults = async (query) => {

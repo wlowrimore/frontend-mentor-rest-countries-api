@@ -1,5 +1,6 @@
 import { Nunito_Sans as NunitoSans } from 'next/font/google'
 import './globals.css'
+import Providers from './providers'
 import Header from './components/Header'
 
 const nunito = NunitoSans({ subsets: ['latin'], weights: ['300, 600, 800'] })
@@ -13,12 +14,14 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className='bg-gray-800'>
       <body className={nunito.className}>
-        <main className='bg-gray-800'>
-          <Header />
-          <section className='container content-center mx-auto mb-12'>
-            {children}
-          </section>
-        </main>
+        <Providers>
+          <main className='bg-gray-800'>
+            <Header />
+            <section className='container content-center mx-auto mb-12'>
+              {children}
+            </section>
+          </main>
+        </Providers>
       </body>
     </html>
   )

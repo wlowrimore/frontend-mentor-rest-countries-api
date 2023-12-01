@@ -4,9 +4,9 @@ import React from 'react'
 const Header = () => {
   return (
     <div className='md:text-lg lg:text-xl bg-gray-700 text-white flex justify-between mx-auto w-full py-6 px-4 md:px-20 lg:px-[2.8rem] xl:px-[5.5rem] 2xl:pr-[11rem] 2xl:pl-[11.5rem]'>
-      {/* <div className='container mx-auto flex justify-between w-screen pr-16'> */}
+      {/* <div className='2xl:container flex justify-between w-screen 2xl:pr-16'> */}
       <div>
-        <Link href='/countries'><h1 className='hover:opacity-50 transform transition duration-300'>Where in the world?</h1></Link>
+        <Link href='/'><h1 className='hover:opacity-50 transform transition duration-300'>Where in the world?</h1></Link>
       </div>
       <div className='flex items-center gap-2 text-sm md:text-md lg:text-lg'>
         {/* <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">

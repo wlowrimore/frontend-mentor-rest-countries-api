@@ -38,7 +38,11 @@ const BorderCountries = ({ borders }) => {
   }, [borders]);
 
   if (!borders || borders.length === 0) {
-    return 'There are no bordering countries.';
+    return (
+      <div className='text-gray-500'>
+        <p>There are no bordering countries</p>
+      </div>
+    )
   }
 
   return (
