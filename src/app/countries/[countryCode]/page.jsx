@@ -57,8 +57,6 @@ const CountryDetails = () => {
   const languagesObject = countryDetails[0]?.languages || {};
   const languagesArray = Object.values(languagesObject);
 
-  // console.log('Borders:', countryDetails[0].borders)
-
   return (
     <>
       {isLoading ? (
@@ -69,22 +67,22 @@ const CountryDetails = () => {
       ) : (
         <>
           {coatOpen && (
-            <div className='hidden bg-gray-700 md:flex flex-col justify-center items-center absolute top-0 left-0 right-0 w-full h-full z-50'>
+            <div className='hidden dark:bg-gray-700 bg-white md:flex flex-col justify-center items-center absolute top-0 bottom-0 left-0 right-0 h-full w-full z-50'>
               <Image
                 src={countryDetails[0]?.coatOfArms?.svg}
                 alt='coat of arms'
                 width={1000}
                 height={1000}
-                className='w-[40rem] h-[40rem] p-20 bg-gray-300 rounded-full'
+                className='w-[40rem] h-[40rem] p-8 dark:bg-gray-300 rounded-full'
               />
               <span onClick={(e) => setCoatOpen(false)} className='absolute top-20 right-20 cursor-pointer text-2xl text-gray-300 hover:text-gray-400'>Close</span>
-              <p className='text-3xl text-gray-200 font-bold mt-4'>{countryDetails[0]?.name?.common}'s&nbsp;Coat of Arms</p>
+              <p className='text-3xl dark:text-gray-200 text-gray-800 font-bold mt-4'>{countryDetails[0]?.name?.common}'s&nbsp;Coat of Arms</p>
             </div>
           )}
 
 
-          <div className='relative mt-10 md:my-20 2xl:mt-32 px-6 w-full flex flex-col'>
-            <button onClick={() => router.back()} className='bg-gray-700 w-fit flex justify-center itmes-center gap-2 text-gray-300 text-xs md:text-sm py-1 md:py-2 px-4 md:px-7 mb-14 md:mb-20 lg:mb-0 xl:mb-8 md:ml-[6.7rem] lg:ml-0 rounded hover:bg-transparent transform transition duration-300'>
+          <div className='relative mt-10 md:my-20 2xl:mt-32 px-6 w-full flex flex-col 2xl:ml-[10rem]'>
+            <button onClick={() => router.back()} className='dark:bg-gray-700 text-gray-800 w-fit flex justify-center itmes-center gap-2 dark:text-gray-300 dark:border-none border border-gray-200 text-xs md:text-sm py-1 md:py-2 px-4 md:px-7 mb-14 md:mb-20 lg:mb-0 xl:mb-8 md:ml-[6.7rem] lg:ml-0 rounded hover:bg-gray-300 dark:hover:bg-transparent transform transition duration-300'>
               <span>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4 md:w-5 md:h-5">
                   <path fillRule="evenodd" d="M7.28 7.72a.75.75 0 010 1.06l-2.47 2.47H21a.75.75 0 010 1.5H4.81l2.47 2.47a.75.75 0 11-1.06 1.06l-3.75-3.75a.75.75 0 010-1.06l3.75-3.75a.75.75 0 011.06 0z" clipRule="evenodd" />
@@ -117,32 +115,32 @@ const CountryDetails = () => {
                             alt='coat of arms'
                             width={400}
                             height={100}
-                            className='w-10 mr-4 bg-gray-200 rounded-full px-2 py-2'
+                            className='w-10 mr-4 dark:bg-gray-200 rounded-full px-2 py-2'
                           />
                         ) : (null)}
                       </>
                     )}
                   </span>
-                  <h1 className='w-full flex items-center text-lg md:text-3xl font-bold text-start text-white'>{countryDetails[0]?.name?.common}
+                  <h1 className='w-full flex items-center text-lg md:text-3xl font-bold text-start text-gray-800 dark:text-white'>{countryDetails[0]?.name?.common}
                   </h1>
                 </div>
-                <div className='flex flex-col md:flex-row text-sm text-gray-300 w-full lg:gap-32'>
-                  <div className='flex flex-col w-full'>
+                <div className='flex flex-col md:flex-row text-sm text-gray-700 dark:text-gray-300 w-full lg:gap-32'>
+                  <div className='flex flex-col w-full 2xl:w-1/2 text-gray-700 dark:text-gray-300'>
                     {Array.isArray(countryDetails) && countryDetails.map((detail, detIndex) => (
                       <div key={detIndex} className='text-sm md:text-md space-y-1 md:space-y-2'>
-                        <p className='font-bold'>Official Name: {detail?.name?.official}</p>
+                        <p className='font-bold'>Official Name: <span className='font-light'>{detail?.name?.official}</span></p>
                         {countryDetails[0]?.population && (
                           <p className='font-bold'>Population: <span className='font-light'>{countryDetails[0]?.population.toLocaleString()}</span></p>
                         )}
                         <p className='font-bold'>Region: <span className='font-light'>{detail?.region}</span></p>
                         <p className='font-bold'>Sub Region: <span className='font-light'>{detail?.subregion}</span></p>
                         <p className='font-bold'>Capital: <span className='font-light'>{detail?.capital || (
-                          <span className='text-rose-400 text-sm italic'>{`${detail.name.common} has no official capital city.`}</span>
+                          <span className='dark:text-rose-400 text-red-500 text-sm italic'>{`${detail.name.common} has no official capital city.`}</span>
                         )}</span></p>
                       </div>
                     ))}
                   </div>
-                  <div className='text-gray-300 w-full flex flex-col md:items-end xl:items-start'>
+                  <div className='dark:text-gray-300 text-gray-700 w-full flex flex-col md:items-end xl:items-start'>
                     {Array.isArray(countryDetails) && countryDetails.map((detail, detIndex) => (
                       <div key={detIndex} className='text-sm md:text-md space-y-1 mb-10'>
                         <p className='font-bold'>UN Status:&nbsp; <span className='font-light'>{detail?.unMember ? 'Member' : 'Non-Member'}</span></p>
@@ -165,7 +163,7 @@ const CountryDetails = () => {
                             <p className='font-light'>{languagesArray.join(', ')}</p>
                           </div>
                         )}
-                        <div className='w-full px-2 py-1 flex flex-col mr-6 bg-gray-900/50 border-b border-gray-700 rounded'>
+                        <div className='w-full px-2 py-1 flex flex-col mr-6 dark:bg-gray-900/50 dark:border-b dark:border-gray-700 border border-gray-300 rounded'>
                           <p className='flex justify-between font-bold py-1 tracking-wide'>
                             Maps:
                             <span className='text-end'><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
@@ -177,7 +175,7 @@ const CountryDetails = () => {
                             <Link href={googleMap}
                               target='_blank'
                               rel='noreferrer noopern'>
-                              <span className='font-light text-blue-300 hover:underline'>
+                              <span className='font-light dark:text-blue-300 text-indigo-600 hover:underline'>
                                 www.googlemaps.com
                               </span>
                             </Link>
@@ -185,7 +183,7 @@ const CountryDetails = () => {
                             <Link href={openStreetMap}
                               target='_blank'
                               rel='noreferrer noopern'>
-                              <span className='font-light text-blue-300 hover:underline'>
+                              <span className='font-light dark:text-blue-300 text-indigo-600 hover:underline'>
                                 www.openstreetmap.org
                               </span>
                             </Link>

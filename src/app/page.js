@@ -1,6 +1,6 @@
 import Countries from "./components/Countries"
 
-export default function Home() {
+export default function Home({ handleGetAllRegions }) {
   return (
     <div>
       <Countries />

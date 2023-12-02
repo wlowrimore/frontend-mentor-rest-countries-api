@@ -63,7 +63,7 @@ const SearchForCountry = () => {
     <div className='w-full md:w-[50%] lg:w-[38%] xl:w-[30%] 2xl:w-[25%] md:mt-3 md:ml-16 lg:ml-8 xl:-ml-2'>
       <div className='flex w-full 2xl:-ml-2'>
         <div className='w-12'>
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-12 h-[3rem] py-3 bg-gray-700 text-white rounded-tl rounded-bl">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-12 h-[3rem] py-3 dark:bg-gray-700 dark:text-white shadow rounded-tl rounded-bl">
             <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
           </svg>
         </div>
@@ -72,7 +72,7 @@ const SearchForCountry = () => {
             ref={inputElem}
             onChange={() => handleSearch(inputElem.current?.value)}
             placeholder='Search for a country...'
-            className='w-full py-2 bg-gray-700 text-white placeholder:text-xs outline-none rounded-tr rounded-br'
+            className='w-full py-2 dark:bg-gray-700 shadow dark:text-white placeholder:text-xs outline-none rounded-tr rounded-br'
           />
         </form>
 

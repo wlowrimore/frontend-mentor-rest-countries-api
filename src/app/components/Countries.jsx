@@ -57,14 +57,14 @@ const Countries = ({ query, setIsOpen }) => {
   const renderPageNumbers = () => {
     const pageCount = Math.ceil(countries.length / countriesPerPage);
     const pageNumbers = [];
-    const numSpread = <span className="text-gray-300 text-2xl">. . .</span>;
+    const numSpread = <span className="dark:text-gray-300 text-gray-700 text-2xl">. . .</span>;
 
     for (let i = 1; i <= pageCount; i++) {
       if (i === 1 || i === pageCount || (i >= currentPage - 2 && i <= currentPage + 2)) {
         pageNumbers.push(
           <button
             key={i}
-            className={`px-2 pb-1 hover:text-orange-300 ${currentPage === i ? 'underline text-orange-400' : 'text-gray-200'
+            className={`px-2 pb-1 dark:hover:text-orange-300 hover:text-orange-500 ${currentPage === i ? 'underline dark:text-orange-400 text-orange-700' : 'dark:text-gray-200 text-gray-700'
               }`}
             onClick={() => handlePageChange(i)}
           >
@@ -84,7 +84,7 @@ const Countries = ({ query, setIsOpen }) => {
       {isLoading ? (
         <div className='h-screen flex flex-col justify-center space-y-4'>
           <h1><PageLoader /></h1>
-          <p className='relative bottom-[5rem] text-4xl font-bold text-center text-gray-500'>Loading...</p>
+          <p className='relative bottom-[5rem] text-4xl font-bold text-center'>Loading...</p>
         </div>
       ) : (
         <>
@@ -98,7 +98,7 @@ const Countries = ({ query, setIsOpen }) => {
 
             <div className='flex flex-wrap w-full mt-28 mb-16 md:mt-16 justify-center gap-10 2xl:grid grid-cols-5'>
               {countries.slice(startIndex, endIndex).map((country) => (
-                <Link href={`/countries/${country.cca2}`} key={country.cca2} className='w-[285px] hover:opacity-60 transform duration-200 ease-in'>
+                <Link href={`/countries/${country.cca2}`} key={country.cca2} className='w-[285px] hover:opacity-60 transform duration-200 ease-in border border-gray-300 shadow-md dark:border-none dark:shadow-none'>
                   <div className='flex flex-col'>
                     <Image
                       src={country.flags.svg}
@@ -107,13 +107,13 @@ const Countries = ({ query, setIsOpen }) => {
                       className='rounded-t w-full h-[200px] object-cover'
                     />
                   </div>
-                  <div className='bg-gray-700 text-gray-300 flex-1 p-6 rounded-b'>
-                    <h1 className='text-lg text-white font-bold mb-3'>{country.name.common}</h1>
-                    <p><span className='text-neutral-200 font-semibold'>Population:</span> {country.population.toLocaleString()}</p>
-                    <p><span className='text-neutral-200 font-semibold'>Region:</span> {country.region}</p>
+                  <div className='dark:bg-gray-700 dark:text-gray-300 flex-1 p-6 rounded-b'>
+                    <h1 className='text-lg dark:text-white font-bold mb-3'>{country.name.common}</h1>
+                    <p><span className='dark:text-neutral-200 font-semibold'>Population:</span> {country.population.toLocaleString()}</p>
+                    <p><span className='dark:text-neutral-200 font-semibold'>Region:</span> {country.region}</p>
                     {!country.capital}
-                    <p><span className='text-neutral-200 font-semibold'>Capital:</span> {country?.capital || (
-                      <span className='text-rose-300 text-sm italic'>{`${country.name.common} has no official capital city.`}</span>
+                    <p><span className='dark:text-neutral-200 font-semibold'>Capital:</span> {country?.capital || (
+                      <span className='dark:text-rose-300 text-red-500 text-sm italic'>{`${country.name.common} has no official capital city.`}</span>
                     )}
                     </p>
                   </div>
@@ -121,9 +121,10 @@ const Countries = ({ query, setIsOpen }) => {
               ))}
             </div>
           )}
+          {/* Pagination */}
           <div className="flex justify-center mt-4">
             <button
-              className={`px-2 pb-1 hover:text-orange-400 ${currentPage === 1 ? 'text-gray-200' : 'text-gray-200'}`}
+              className={`px-2 pb-1 hover:text-orange-400 ${currentPage === 1 ? 'dark:text-gray-200 text-gray-700' : 'dark:text-gray-200 text-gray-700'}`}
               onClick={() => handlePageChange(1)}
             >
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
@@ -132,7 +133,7 @@ const Countries = ({ query, setIsOpen }) => {
             </button>
             {renderPageNumbers()}
             <button
-              className={`px-2 pb-1 hover:text-orange-400 ${currentPage === Math.ceil(countries.length / countriesPerPage) ? 'bg-gray-800 text-white' : 'text-gray-200'}`}
+              className={`px-2 pb-1 hover:text-orange-400 ${currentPage === Math.ceil(countries.length / countriesPerPage) ? 'dark:bg-gray-800 dark:text-white text-gray-700' : 'dark:text-gray-200'}`}
               onClick={() => handlePageChange(Math.ceil(countries.length / countriesPerPage))}
             >
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
