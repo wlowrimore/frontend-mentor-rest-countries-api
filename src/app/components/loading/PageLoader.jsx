@@ -2,7 +2,7 @@ import React from 'react'
 import './page-loader-module.css'
 const PageLoader = () => {
   return (
-    <div className="loader3">
+    <div className="loader3 dark:bg-gray-800 dark:text-gray-300">
       <div className="bars bar1"></div>
       <div className="bars bar2"></div>
       <div className="bars bar3"></div>

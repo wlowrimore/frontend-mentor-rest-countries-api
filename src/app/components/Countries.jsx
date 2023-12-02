@@ -33,9 +33,6 @@ const Countries = ({ query, setIsOpen }) => {
 
         const data = await res.json();
 
-        console.log('API URL:', API_URL);
-        console.log('Countries Data:', data);
-
         setCountries(data);
       } catch (error) {
         console.error('Error fetching countries:', error.message);

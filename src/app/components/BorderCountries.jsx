@@ -16,13 +16,9 @@ const BorderCountries = ({ borders }) => {
                 `https://restcountries.com/v3.1/alpha/${border}`
               );
               const data = await res.json();
-              // console.log('border logged from BorderCountries.jsx:', data)
 
               const borderCountryName = await data?.[0].name?.common
               const borderCountryCode = await data?.[0].cca2
-
-              console.log('Border Country Names:', borderCountryName)
-              console.log('Border Country Codes:', borderCountryCode)
 
               return { borderCountryName, borderCountryCode }
             })

@@ -2,7 +2,6 @@ import { Nunito_Sans as NunitoSans } from 'next/font/google'
 import './globals.css'
 import Providers from './providers'
 import Header from './components/Header'
-import ThemeSwitcher from './components/ThemeSwitcher'
 
 const nunito = NunitoSans({ subsets: ['latin'], weights: ['300, 600, 800'] })
 

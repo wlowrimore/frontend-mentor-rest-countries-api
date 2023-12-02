@@ -1,21 +1,15 @@
 'use client'
 
 import { useState, useEffect } from 'react';
-import Link from 'next/link';
 
 const DropdownForRegion = ({ onRegionSelect }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [regions, setRegions] = useState([]);
   const [selectedRegion, setSelectedRegion] = useState('');
-  const [allRegions, setAllRegions] = useState();
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
-
-  useEffect(() => {
-    console.log('All Regions Showing:', allRegions);
-  }, [])
 
   useEffect(() => {
     const fetchRegions = async () => {
@@ -37,8 +31,6 @@ const DropdownForRegion = ({ onRegionSelect }) => {
       setIsOpen(false);
     }
   }, [selectedRegion]);
-
-
 
   return (
     <div className="text-xs w-[60%] md:w-[25%] xl:w-[16%] 2xl:w-[12%] flex flex-col text-neutral-300 absolute z-10 top-32 md:top-[9.35%] xl:top[9.5%] 2xl:top-[7.3%] md:right-20 lg:right-[2.7rem] xl:right-[5.5rem] 2xl:right-[10.8rem]">
@@ -67,9 +59,9 @@ const DropdownForRegion = ({ onRegionSelect }) => {
       >
         <div className='relative z-10 '>
           <ul className='space-y-1'>
-            {regions.map((region) => (
+            {regions.map((region, regIndex) => (
               <li
-                key={region}
+                key={regIndex}
                 onClick={() => { onRegionSelect(`${region}`); setSelectedRegion(`${region}`) }}
                 className={`hover:bg-gray-800/30 w-4/5 rounded py-1 px-3 cursor-pointer ${region === selectedRegion ? 'bg-gray-800/30' : ''
                   }`}

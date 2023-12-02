@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { useSearchParams, usePathname, useRouter } from 'next/navigation';
-import DropdownForRegion from './DropdownForRegion';
 
 // Debounce Fn to Wrap SearchHandler and Act as AbortController.  This keeps the Fetch Function From Calling API With Every Keystroke.
 const debounce = (func, wait) => {
@@ -22,9 +21,6 @@ const SearchForCountry = () => {
 
   const inputElem = useRef(null);
 
-  // Handle Search with Debouncer to Minimize API Requests
-  const handleSearch = useCallback(debounce(query => fetchCountryResults(query), 400))
-
   // Fetch Searched Country
   const fetchCountryResults = async (query) => {
     setSearchedCountry(query);
@@ -43,6 +39,9 @@ const SearchForCountry = () => {
       console.error(error)
     }
   }
+
+  // Handle Search with Debouncer to Minimize API Requests
+  const handleSearch = useCallback(debounce(query => fetchCountryResults(query), 400), [fetchCountryResults])
 
   // SubmitHandler Grabs CountryCode from SearchedCountry, Updates the URL and Carries the CountryCode Over to the CountryCode Details Page.
   const handleSubmit = (e) => {
@@ -75,9 +74,6 @@ const SearchForCountry = () => {
             className='w-full py-2 dark:bg-gray-700 shadow dark:text-white placeholder:text-xs outline-none rounded-tr rounded-br'
           />
         </form>
-
-        {/* Dropdown for Region */}
-
       </div>
     </div>
   );

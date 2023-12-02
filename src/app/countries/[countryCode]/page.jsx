@@ -1,5 +1,6 @@
 'use client'
 import BorderCountries from '@/app/components/BorderCountries';
+import PageLoader from '../../components/loading/PageLoader';
 import SpinnerLoader from '@/app/components/loading/SpinnerLoader';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -38,21 +39,20 @@ const CountryDetails = () => {
     if (countryDetails) {
       const languagesObject = countryDetails[0]?.languages || {};
       const languagesArray = Object.values(languagesObject);
-
-      console.log('Country Details:', countryDetails);
-      console.log('Languages Array:', languagesArray);
     }
   }, [countryCode, countryDetails]);
 
   if (!countryDetails) {
-    return <div>Loading...</div>;
+    return <div className='h-screen flex flex-col justify-center space-y-4'>
+      <h1><PageLoader /></h1>
+      <p className='relative bottom-[5rem] text-4xl font-bold text-center'>Loading...</p>
+    </div>
   }
 
   const mapsObject = countryDetails[0]?.maps || {};
   const mapsArray = Object.values(mapsObject);
   const googleMap = mapsArray[0];
   const openStreetMap = mapsArray[1];
-
 
   const languagesObject = countryDetails[0]?.languages || {};
   const languagesArray = Object.values(languagesObject);
@@ -76,11 +76,9 @@ const CountryDetails = () => {
                 className='w-[40rem] h-[40rem] p-8 dark:bg-gray-300 rounded-full'
               />
               <span onClick={(e) => setCoatOpen(false)} className='absolute top-20 right-20 cursor-pointer text-2xl text-gray-300 hover:text-gray-400'>Close</span>
-              <p className='text-3xl dark:text-gray-200 text-gray-800 font-bold mt-4'>{countryDetails[0]?.name?.common}'s&nbsp;Coat of Arms</p>
+              <p className='text-3xl dark:text-gray-200 text-gray-800 font-bold mt-4'>{countryDetails[0]?.name?.common}&apos;s&nbsp;Coat of Arms</p>
             </div>
           )}
-
-
           <div className='relative mt-10 md:my-20 2xl:mt-32 px-6 w-full flex flex-col 2xl:ml-[10rem]'>
             <button onClick={() => router.back()} className='dark:bg-gray-700 text-gray-800 w-fit flex justify-center itmes-center gap-2 dark:text-gray-300 dark:border-none border border-gray-200 text-xs md:text-sm py-1 md:py-2 px-4 md:px-7 mb-14 md:mb-20 lg:mb-0 xl:mb-8 md:ml-[6.7rem] lg:ml-0 rounded hover:bg-gray-300 dark:hover:bg-transparent transform transition duration-300'>
               <span>
@@ -109,7 +107,6 @@ const CountryDetails = () => {
                     ) : (
                       <>
                         {countryDetails[0]?.coatOfArms?.svg ? (
-
                           <Image
                             src={countryDetails[0]?.coatOfArms?.svg}
                             alt='coat of arms'
@@ -199,7 +196,6 @@ const CountryDetails = () => {
           </div>
         </>
       )}
-
     </>
   );
 }
