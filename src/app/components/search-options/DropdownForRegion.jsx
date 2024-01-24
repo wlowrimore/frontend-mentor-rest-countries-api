@@ -33,10 +33,10 @@ const DropdownForRegion = ({ onRegionSelect }) => {
   }, [selectedRegion]);
 
   return (
-    <div className="text-xs w-[60%] md:w-[25%] xl:w-[16%] 2xl:w-[12%] flex flex-col text-neutral-300 absolute z-10 top-32 md:top-[9.35%] xl:top[9.5%] 2xl:top-[7.3%] md:right-20 lg:right-[2.7rem] xl:right-[5.5rem] 2xl:right-[10.8rem]">
+    <div className="text-xs mx-5 w-[90%] md:w-[40%] xl:w-[40%] 2xl:w-[30%] flex flex-col text-neutral-300 absolute z-10 top-[12rem] md:top-[13.6%] xl:top-[15.3%] 2xl:top-[11.8%] md:left-[67.2%] lg:left-[65%] xl:right-[50%] 2xl:left-[74.3%]">
       <section
         onClick={toggleMenu}
-        className='dark:bg-gray-700 shadow flex justify-between items-center w-full h-12 py-2 px-6 rounded cursor-pointer'
+        className='dark:bg-gray-700 shadow flex justify-between items-center w-[50%] h-12 py-2 px-6 rounded cursor-pointer'
       >
         <span className='text-gray-700 dark:text-gray-300'>Filter by Region</span>
         <svg

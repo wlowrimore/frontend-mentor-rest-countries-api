@@ -93,9 +93,9 @@ const Countries = ({ query, setIsOpen }) => {
             <SpinnerLoader />
           ) : (
 
-            <div className='flex flex-wrap w-full mt-28 mb-16 md:mt-16 justify-center gap-10 2xl:grid grid-cols-5'>
+            <div className='flex flex-wrap lg:mx-4 mt-28 mb-16 md:mt-16 justify-center gap-10 2xl:grid grid-cols-5'>
               {countries.slice(startIndex, endIndex).map((country) => (
-                <Link href={`/countries/${country.cca2}`} key={country.cca2} className='w-[285px] hover:opacity-60 transform duration-200 ease-in border border-gray-300 shadow-md dark:border-none dark:shadow-none'>
+                <Link href={`/countries/${country.cca2}`} key={country.cca2} className='w-full md:w-[285px] md:mx-0 mx-10 hover:opacity-60 transform duration-200 ease-in border border-gray-300 shadow-md dark:border-none dark:shadow-none'>
                   <div className='flex flex-col'>
                     <Image
                       src={country.flags.svg}

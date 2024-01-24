@@ -19,7 +19,7 @@ const ThemeSwitcher = () => {
 
   return (
     <>
-      <button onClick={() => setTheme(isDarkMode ? 'light' : 'dark')} className='flex items-center gap-2 dark:text-gray-300 text-gray-800 text-sm md:text-md lg:text-lg'>
+      <button onClick={() => setTheme(isDarkMode ? 'light' : 'dark')} className='flex justify-center items-center gap-2 dark:text-gray-300 text-gray-800 text-sm md:text-md lg:text-lg bg-gray-300/30 rounded-full w-fit pl-2 pr-4 py-1 mt-4'>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={`w-5 h-5 ${isDarkMode ? 'text-yellow-300' : 'text-black'}`}>
           {isDarkMode ? (
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
